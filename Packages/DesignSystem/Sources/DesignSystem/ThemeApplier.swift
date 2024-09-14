@@ -8,7 +8,7 @@ public extension View {
     modifier(ThemeApplier(theme: theme))
   }
 }
-
+//@MainActor: 这个属性标识符确保
 @MainActor
 struct ThemeApplier: ViewModifier {
   @Environment(\EnvironmentValues.colorScheme) var colorScheme

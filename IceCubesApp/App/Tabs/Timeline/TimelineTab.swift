@@ -129,10 +129,10 @@ struct TimelineTab: View {
       listsFiltersButons
       tagsFiltersButtons
     }
-    localTimelinesFiltersButtons
-    tagGroupsFiltersButtons
+    localTimelinesFiltersButtons//远程时间线
+    tagGroupsFiltersButtons//标签组
     Divider()
-    contentFilterButton
+    contentFilterButton//内容筛选
   }
 
   private var addAccountButton: some View {
@@ -159,32 +159,32 @@ struct TimelineTab: View {
       }
     }
     switch timeline {
-    case let .list(list):
-      ToolbarItem {
-        Button {
-          routerPath.presentedSheet = .listEdit(list: list)
-        } label: {
-          Image(systemName: "list.bullet")
-        }
-      }
-    case let .remoteLocal(server, _):
-      ToolbarItem {
-        Menu {
-          ForEach(RemoteTimelineFilter.allCases, id: \.self) { filter in
+        case let .list(list):
+          ToolbarItem {
             Button {
-              timeline = .remoteLocal(server: server, filter: filter)
+              routerPath.presentedSheet = .listEdit(list: list)
             } label: {
-              Label(filter.localizedTitle(), systemImage: filter.iconName())
+              Image(systemName: "list.bullet")
             }
           }
-        } label: {
-          Image(systemName: "line.3.horizontal.decrease.circle")
-        }
-      }
-    default:
-      ToolbarItem {
-        EmptyView()
-      }
+        case let .remoteLocal(server, _):
+          ToolbarItem {
+            Menu {
+              ForEach(RemoteTimelineFilter.allCases, id: \.self) { filter in
+                Button {
+                  timeline = .remoteLocal(server: server, filter: filter)
+                } label: {
+                  Label(filter.localizedTitle(), systemImage: filter.iconName())
+                }
+              }
+            } label: {
+              Image(systemName: "line.3.horizontal.decrease.circle")
+            }
+          }
+        default:
+          ToolbarItem {
+            EmptyView()
+          }
     }
   }
 

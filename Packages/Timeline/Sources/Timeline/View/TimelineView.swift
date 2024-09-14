@@ -114,7 +114,7 @@ public struct TimelineView: View {
         }
       }
     }
-    .toolbar {
+    .toolbar {//中间标题部分
       toolbarTitleView
       toolbarTagGroupButton
     }

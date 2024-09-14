@@ -56,7 +56,13 @@ struct IceCubesApp: App {
 
   @State var isSupporter: Bool = false
 
-    //应用入口，全局有且只有一个
+    /*
+     应用入口，全局有且只有一个Scene类型的body
+     当有其他Scene类型的属性时，如果属性内部由多个scene组成，那么该属性需要使用
+     @SceneBuilder修饰，如otherScenes
+     otherScenes中由两个WindowGroup组成
+     appScene则只有一个WindowGroup，所以不需要 @SceneBuilder组成
+     */
   var body: some Scene {
     appScene
     otherScenes

@@ -6,7 +6,7 @@ import SwiftUI
 
 extension IceCubesApp {
   var appScene: some Scene {
-    WindowGroup(id: "MainWindow") {
+    WindowGroup(id: "MainWindow") {//@ViewBuilder content: () -> Content, 闭包，构建view
       AppView(selectedTab: $selectedTab, appRouterPath: $appRouterPath)
         .applyTheme(theme)
         .onAppear {
@@ -24,7 +24,20 @@ extension IceCubesApp {
         .environment(watcher)
         .environment(pushNotificationsService)
         .environment(appIntentService)
-        .environment(\.isSupporter, isSupporter)
+        /*
+         这种用法通过一个环境键（EnvironmentKey）将一个特定的值注入到视图的环境中。
+         \. 表示访问一个具体的环境值，isSupporter 是通过 EnvironmentKey 定义的键值对。
+         private struct IsSupporter: EnvironmentKey {
+           static let defaultValue: Bool = false
+         }
+         public extension EnvironmentValues {
+           var isSupporter: Bool {
+             get { self[IsSupporter.self] }
+             set { self[IsSupporter.self] = newValue }
+           }
+         }
+         */
+        .environment(\.isSupporter, isSupporter)//key-value的方式注入
         .sheet(item: $quickLook.selectedMediaAttachment) { selectedMediaAttachment in
           MediaUIView(selectedAttachment: selectedMediaAttachment,
                       attachments: quickLook.mediaAttachments)
